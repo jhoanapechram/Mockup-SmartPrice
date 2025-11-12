@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPrice - Compara precios en tiempo real</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2196F3;
+            --secondary: #FF9800;
+            --white: #FFFFFF;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
+            --text: #212121;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header y Navegación */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .icon-btn:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #0D47A1 100%);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background-color: #F57C00;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--text);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background-color: var(--white);
+            border: 1px solid var(--medium-gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            height: 180px;
+            background-color: var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .product-old-price {
+            text-decoration: line-through;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-store {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .product-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .badge-offer {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .badge-profeco {
+            background-color: var(--success);
+            color: var(--white);
+        }
+        
+        .badge-high {
+            background-color: var(--success);
+            color: var(--white);
+        }
+        
+        .badge-medium {
+            background-color: var(--warning);
+            color: var(--text);
+        }
+        
+        .badge-low {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+        
+        /* Price Comparison */
+        .comparison {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        .store-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .store-logo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--medium-gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+        
+        .modal-title {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .chatbot-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+        }
+        
+        .chatbot-header {
+            padding: 15px;
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+        }
+        
+        .bot-message {
+            background-color: var(--light-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            background-color: var(--primary);
+            color: var(--white);
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid var(--medium-gray);
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        
+        .chatbot-send {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .features-grid, .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-balance-scale"></i>
+                <span>SmartPrice</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#products"><i class="fas fa-shopping-basket"></i> Productos</a></li>
+                <li><a href="#comparison"><i class="fas fa-chart-line"></i> Comparar</a></li>
+                <li><a href="#"><i class="fas fa-history"></i> Historial</a></li>
+                <li><a href="#"><i class="fas fa-list"></i> Listas</a></li>
+            </ul>
+            
+            <div class="user-actions">
+                <button class="icon-btn" id="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="icon-btn" id="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+                <button class="btn btn-outline" id="login-btn">
+                    <i class="fas fa-user"></i> Iniciar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Encuentra los mejores precios en tiempo real</h1>
+            <p>Compara precios de supermercados como Walmart, Soriana, Chedraui y más. Ahorra tiempo y dinero con SmartPrice.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="¿Qué producto buscas? Ej. Leche, Pan, Arroz...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <button class="btn btn-secondary" style="margin-right: 10px;">
+                    <i class="fas fa-map-marker-alt"></i> Activar Ubicación
+                </button>
+                <button class="btn btn-outline" style="background-color: rgba(255,255,255,0.2); color: white; border-color: white;">
+                    <i class="fas fa-filter"></i> Filtros Avanzados
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">¿Por qué usar SmartPrice?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Comparación en Tiempo Real</h3>
+                    <p>Obten precios actualizados al instante de múltiples supermercados para tomar la mejor decisión de compra.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Historial de Precios</h3>
+                    <p>Visualiza la evolución de precios de productos para identificar tendencias y el mejor momento para comprar.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Predicciones con IA</h3>
+                    <p>Nuestra inteligencia artificial predice futuras variaciones de precios para que ahorres aún más.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Validación Profeco</h3>
+                    <p>Verificamos ofertas con datos oficiales de Profeco para garantizar su autenticidad y confiabilidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Productos Destacados</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Alimentos</button>
+                <button class="filter-btn">Bebidas</button>
+                <button class="filter-btn">Limpieza</button>
+                <button class="filter-btn">Cuidado Personal</button>
+                <button class="filter-btn">Ofertas</button>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-wine-bottle fa-3x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge badge-offer">15% OFF</span>
+                        <span class="product-badge badge-profeco">Profeco</span>
+                        <span class="product-badge badge-high">Alta Confiabilidad</span>
+                        
+                        <h3 class="product-title">Aceite de Oliva Extra Virgen 500ml</h3>
+                        <div class="product-price">$89.90</div>
+                        <div class="product-old-price">$105.90</div>
+                        
+                        <div class="product-store">
+                            <i class="fas fa-store"></i> Walmart
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-outline">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-wine-bottle fa-3x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge badge-profeco">Profeco</span>
+                        <span class="product-badge badge-medium">Media Confiabilidad</span>
+                        
+                        <h3 class="product-title">Aceite de Oliva Extra Virgen 500ml</h3>
+                        <div class="product-price">$92.50</div>
+                        
+                        <div class="product-store">
+                            <i class="fas fa-store"></i> Soriana
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-outline">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-wine-bottle fa-3x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge badge-offer">10% OFF</span>
+                        <span class="product-badge badge-low">Baja Confiabilidad</span>
+                        
+                        <h3 class="product-title">Aceite de Oliva Extra Virgen 500ml</h3>
+                        <div class="product-price">$95.00</div>
+                        <div class="product-old-price">$105.50</div>
+                        
+                        <div class="product-store">
+                            <i class="fas fa-store"></i> Chedraui
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-outline">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-milk fa-3x"></i>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-badge badge-profeco">Profeco</span>
+                        <span class="product-badge badge-high">Alta Confiabilidad</span>
+                        
+                        <h3 class="product-title">Leche Entera Alpura 1L</h3>
+                        <div class="product-price">$24.50</div>
+                        
+                        <div class="product-store">
+                            <i class="fas fa-store"></i> Bodega Aurrera
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn btn-outline">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary">
+                    <i class="fas fa-eye"></i> Ver Más Productos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Comparison Section -->
+    <section class="comparison" id="comparison">
+        <div class="container">
+            <h2 class="section-title">Comparación de Precios</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active">Mejor Precio</button>
+                <button class="filter-btn">Más Cercano</button>
+                <button class="filter-btn">Balance</button>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Supermercado</th>
+                        <th>Precio</th>
+                        <th>Distancia</th>
+                        <th>Disponibilidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="store-logo">
+                                <i class="fas fa-store" style="color: #0071ce;"></i>
+                                <span>Walmart</span>
+                            </div>
+                        </td>
+                        <td>$89.90</td>
+                        <td>1.2 km</td>
+                        <td><span style="color: var(--success);"><i class="fas fa-check-circle"></i> En stock</span></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="store-logo">
+                                <i class="fas fa-store" style="color: #e2001a;"></i>
+                                <span>Soriana</span>
+                            </div>
+                        </td>
+                        <td>$92.50</td>
+                        <td>0.8 km</td>
+                        <td><span style="color: var(--success);"><i class="fas fa-check-circle"></i> En stock</span></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="store-logo">
+                                <i class="fas fa-store" style="color: #ff6700;"></i>
+                                <span>Chedraui</span>
+                            </div>
+                        </td>
+                        <td>$95.00</td>
+                        <td>2.1 km</td>
+                        <td><span style="color: var(--warning);"><i class="fas fa-exclamation-circle"></i> Últimas unidades</span></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="store-logo">
+                                <i class="fas fa-store" style="color: #ffd100;"></i>
+                                <span>Bodega Aurrera</span>
+                            </div>
+                        </td>
+                        <td>$97.50</td>
+                        <td>1.5 km</td>
+                        <td><span style="color: var(--success);"><i class="fas fa-check-circle"></i> En stock</span></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-chart-line"></i> Ver Historial de Precios
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-robot"></i> Obtener Predicción IA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>SmartPrice</h3>
+                    <p>La plataforma líder en comparación de precios en tiempo real. Ahorra tiempo y dinero con nuestras herramientas inteligentes.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Productos</a></li>
+                        <li><a href="#">Comparar Precios</a></li>
+                        <li><a href="#">Historial</a></li>
+                        <li><a href="#">Listas de Compra</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Funcionalidades</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Comparación en Tiempo Real</a></li>
+                        <li><a href="#">Predicción de Precios</a></li>
+                        <li><a href="#">Validación Profeco</a></li>
+                        <li><a href="#">Asistente Virtual</a></li>
+                        <li><a href="#">Sistema de Alertas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> soporte@smartprice.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +52 55 1234 5678</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Ciudad de México</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 SmartPrice. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="login-close">&times;</button>
+            <h2 class="modal-title">Iniciar Sesión</h2>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" class="form-control" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" class="form-control" placeholder="Tu contraseña" required>
+                </div>
+                
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Recordarme</label>
+                    </div>
+                    <a href="#" style="color: var(--primary);">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <p>¿No tienes cuenta? <a href="#" style="color: var(--primary);" id="register-link">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button class="chatbot-btn" id="chatbot-toggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>Asistente SmartPrice</h3>
+                <button class="icon-btn" id="chatbot-close" style="color: white;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    ¡Hola! Soy tu asistente de SmartPrice. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Escribe tu mensaje...">
+                <button class="chatbot-send" id="chatbot-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const loginClose = document.getElementById('login-close');
+        
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+        
+        loginClose.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        
+        // Chatbot functionality
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.style.display = 'flex';
+        });
+        
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+        
+        chatbotSend.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user-message');
+                userMessage.textContent = message;
+                chatbotMessages.appendChild(userMessage);
+                
+                // Clear input
+                chatbotInput.value = '';
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                
+                // Simulate bot response after a delay
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot-message');
+                    
+                    // Simple response logic based on keywords
+                    if (message.toLowerCase().includes('precio') || message.toLowerCase().includes('barato')) {
+                        botMessage.textContent = 'Puedo ayudarte a encontrar los mejores precios. ¿Qué producto estás buscando?';
+                    } else if (message.toLowerCase().includes('oferta') || message.toLowerCase().includes('descuento')) {
+                        botMessage.textContent = 'Te puedo mostrar las ofertas disponibles. ¿Tienes algún producto en mente?';
+                    } else if (message.toLowerCase().includes('historial')) {
+                        botMessage.textContent = 'Puedo mostrarte el historial de precios de cualquier producto. Solo dime cuál te interesa.';
+                    } else if (message.toLowerCase().includes('hola') || message.toLowerCase().includes('buenas')) {
+                        botMessage.textContent = '¡Hola! ¿En qué puedo ayudarte hoy?';
+                    } else {
+                        botMessage.textContent = 'Entiendo que quieres información sobre: "' + message + '". Te recomiendo usar la función de búsqueda para encontrar productos específicos.';
+                    }
+                    
+                    chatbotMessages.appendChild(botMessage);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        // Filter buttons functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        // Product card interactions
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            const heartBtn = card.querySelector('.fa-heart');
+            if (heartBtn) {
+                heartBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    heartBtn.classList.toggle('far');
+                    heartBtn.classList.toggle('fas');
+                    heartBtn.classList.toggle('active');
+                });
+            }
+            
+            card.addEventListener('click', () => {
+                // In a real app, this would navigate to product detail
+                alert('Redirigiendo a página de detalles del producto');
+            });
+        });
+        
+        // Add fade-in animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.feature-card, .product-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
